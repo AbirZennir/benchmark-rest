@@ -31,3 +31,25 @@ scrape_configs:
   - job_name: 'variant-d-jmx'
     static_configs:
       - targets: ['host.docker.internal:9404']
+global:
+  scrape_interval: 5s        # fréquence de scrap
+  scrape_timeout: 4s
+  evaluation_interval: 15s
+
+scrape_configs:
+  # 1) Prometheus lui-même
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+        labels:
+          app: 'prometheus'
+
+  # 2) Spring Boot (actuator /prometheus) qui tourne sur l’hôte Windows
+  #    -> depuis un conteneur, on atteint l’hôte via host.docker.internal
+  - job_name: 'spring-boot'
+    metrics_path: /actuator/prometheus
+    scheme: http
+    static_configs:
+      - targets: ['host.docker.internal:8080']
+        labels:
+          app: 'variant-c-springmvc'
