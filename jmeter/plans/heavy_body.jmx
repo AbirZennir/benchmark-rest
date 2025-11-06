@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.3">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="HEAVY-body" enabled="true">
+      <stringProp name="TestPlan.comments">50% POST /items (5 KB), 50% PUT /items/{id} (5 KB)</stringProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="baseUrl" elementType="Argument"><stringProp name="Argument.value">http://localhost:8083/api</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp>
+          <elementProp name="rampUpSec" elementType="Argument"><stringProp name="Argument.value">60</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp>
+          <elementProp name="loopMinutesPerStage" elementType="Argument"><stringProp name="Argument.value">8</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp>
+          <elementProp name="stage1Users" elementType="Argument"><stringProp name="Argument.value">30</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp>
+          <elementProp name="stage2Users" elementType="Argument"><stringProp name="Argument.value">60</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp>
+        </collectionProp>
+      </elementProp>
+    </TestPlan>
+    <hashTree>
+      <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="HTTP Request Defaults" enabled="true">
+        <elementProp name="HTTPsampler.Arguments" elementType="Arguments"><collectionProp name="Arguments.arguments"/></elementProp>
+        <stringProp name="HTTPSampler.domain">localhost</stringProp>
+        <stringProp name="HTTPSampler.port">8083</stringProp>
+        <stringProp name="HTTPSampler.protocol">http</stringProp>
+        <stringProp name="HTTPSampler.path"></stringProp>
+      </ConfigTestElement>
+      <hashTree/>
+
+      <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV items" enabled="true">
+        <stringProp name="filename">..\\datasets\\items.csv</stringProp>
+        <stringProp name="variableNames">itemId,categoryId</stringProp>
+        <boolProp name="ignoreFirstLine">true</boolProp>
+        <stringProp name="delimiter">,</stringProp>
+        <boolProp name="recycle">true</boolProp>
+        <boolProp name="stopThread">false</boolProp>
+        <stringProp name="shareMode">all</stringProp>
+      </CSVDataSet>
+      <hashTree/>
+
+      <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV item payloads 5KB" enabled="true">
+        <stringProp name="filename">..\\datasets\\payloads_5KB.csv</stringProp>
+        <stringProp name="variableNames">itemBody5k</stringProp>
+        <boolProp name="ignoreFirstLine">true</boolProp>
+        <stringProp name="delimiter">,</stringProp>
+        <boolProp name="recycle">true</boolProp>
+        <boolProp name="stopThread">false</boolProp>
+        <stringProp name="shareMode">all</stringProp>
+      </CSVDataSet>
+      <hashTree/>
+
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Stage 1 - 30 users" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">true</boolProp>
+          <stringProp name="LoopController.loops">-1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">30</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">60</stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">480</stringProp>
+        <stringProp name="ThreadGroup.delay">0</stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <ThroughputController guiclass="ThroughputControllerGui" testclass="ThroughputController" testname="50% POST /items (5KB)" enabled="true"><intProp name="ThroughputController.style">1</intProp><boolProp name="ThroughputController.perThread">false</boolProp><stringProp name="ThroughputController.maxThroughput">50.0</stringProp></ThroughputController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST /items" enabled="true">
+            <stringProp name="HTTPSampler.path">/api/items</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <stringProp name="HTTPSampler.postBodyRaw">true</stringProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments"><collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument"><boolProp name="HTTPArgument.always_encode">false</boolProp><stringProp name="Argument.value">${itemBody5k}</stringProp><stringProp name="HTTPArgument.type">text</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp>
+            </collectionProp></elementProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+        </hashTree>
+
+        <ThroughputController guiclass="ThroughputControllerGui" testclass="ThroughputController" testname="50% PUT /items/{id} (5KB)" enabled="true"><intProp name="ThroughputController.style">1</intProp><boolProp name="ThroughputController.perThread">false</boolProp><stringProp name="ThroughputController.maxThroughput">50.0</stringProp></ThroughputController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PUT /items/{id}" enabled="true">
+            <stringProp name="HTTPSampler.path">/api/items/${itemId}</stringProp>
+            <stringProp name="HTTPSampler.method">PUT</stringProp>
+            <stringProp name="HTTPSampler.postBodyRaw">true</stringProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments"><collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument"><boolProp name="HTTPArgument.always_encode">false</boolProp><stringProp name="Argument.value">${itemBody5k}</stringProp><stringProp name="HTTPArgument.type">text</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp>
+            </collectionProp></elementProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Stage 2 - 60 users" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">true</boolProp>
+          <stringProp name="LoopController.loops">-1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">60</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">60</stringProp>
+        <boolProp name="ThreadGroup.scheduler">true</boolProp>
+        <stringProp name="ThreadGroup.duration">480</stringProp>
+        <stringProp name="ThreadGroup.delay">0</stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <ThroughputController guiclass="ThroughputControllerGui" testclass="ThroughputController" testname="50% POST /items (5KB) - S2" enabled="true"><intProp name="ThroughputController.style">1</intProp><boolProp name="ThroughputController.perThread">false</boolProp><stringProp name="ThroughputController.maxThroughput">50.0</stringProp></ThroughputController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="POST /items - S2" enabled="true">
+            <stringProp name="HTTPSampler.path">/api/items</stringProp>
+            <stringProp name="HTTPSampler.method">POST</stringProp>
+            <stringProp name="HTTPSampler.postBodyRaw">true</stringProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments"><collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument"><boolProp name="HTTPArgument.always_encode">false</boolProp><stringProp name="Argument.value">${itemBody5k}</stringProp><stringProp name="HTTPArgument.type">text</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp>
+            </collectionProp></elementProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+        </hashTree>
+        <ThroughputController guiclass="ThroughputControllerGui" testclass="ThroughputController" testname="50% PUT /items/{id} (5KB) - S2" enabled="true"><intProp name="ThroughputController.style">1</intProp><boolProp name="ThroughputController.perThread">false</boolProp><stringProp name="ThroughputController.maxThroughput">50.0</stringProp></ThroughputController>
+        <hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="PUT /items/{id} - S2" enabled="true">
+            <stringProp name="HTTPSampler.path">/api/items/${itemId}</stringProp>
+            <stringProp name="HTTPSampler.method">PUT</stringProp>
+            <stringProp name="HTTPSampler.postBodyRaw">true</stringProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments"><collectionProp name="Arguments.arguments">
+              <elementProp name="" elementType="HTTPArgument"><boolProp name="HTTPArgument.always_encode">false</boolProp><stringProp name="Argument.value">${itemBody5k}</stringProp><stringProp name="HTTPArgument.type">text</stringProp><stringProp name="Argument.metadata">=</stringProp></elementProp>
+            </collectionProp></elementProp>
+          </HTTPSamplerProxy>
+          <hashTree/>
+        </hashTree>
+      </hashTree>
+
+      <ResultCollector guiclass="SummaryReport" testclass="ResultCollector" testname="Summary Report" enabled="true"/>
+      <hashTree/>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
