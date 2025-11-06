@@ -1,4 +1,37 @@
 global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+
+scrape_configs:
+  # Spring Actuator Prometheus
+  - job_name: 'variant-a-actuator'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ['host.docker.internal:8082']
+
+  - job_name: 'variant-c-actuator'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ['host.docker.internal:8083']
+
+  - job_name: 'variant-d-actuator'
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ['host.docker.internal:8084']
+
+  # JMX Exporter agents
+  - job_name: 'variant-a-jmx'
+    static_configs:
+      - targets: ['host.docker.internal:9402']
+
+  - job_name: 'variant-c-jmx'
+    static_configs:
+      - targets: ['host.docker.internal:9403']
+
+  - job_name: 'variant-d-jmx'
+    static_configs:
+      - targets: ['host.docker.internal:9404']
+global:
   scrape_interval: 5s        # fréquence de scrap
   scrape_timeout: 4s
   evaluation_interval: 15s
