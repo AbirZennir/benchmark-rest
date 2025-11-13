@@ -22,7 +22,8 @@ Variantes testées :
 
 Base de données
 ---------------
-<img width="960" height="540" alt="join-filter-1" src="https://github.com/user-attachments/assets/525b82cd-7f8f-4426-a91c-a745908a9450" />
+<img width="960" height="540" alt="image" src="https://github.com/user-attachments/assets/88f427f6-025f-47e0-942a-7cbca82df172" />
+
 
 
 Données utilisées :
