@@ -71,26 +71,24 @@ T0 — Configuration matérielle et logicielle
 
 
 T1 — Définition des scénarios
------------------------------
-Scénario              | Mix                                                        | Threads (paliers)   | Ramp-up   | Durée/palier   | Payload
----------------------------------------------------------------------------------------------------------------------------------------------
-READ-heavy (relation) | 50% GET /items?page=&size=50                               | 50 → 100 → 200      | 60 s      | 10 min         | –
-                      | 20% GET /items?categoryId=...&page=&size=
-                      | 20% GET /categories/{id}/items?page=&size=
-                      | 10% GET /categories?page=&size=
+# T1 — Scénarios
 
-JOIN-filter           | 70% GET /items?categoryId=...&page=&size=                  | 60 → 120            | 60 s      | 8 min          | –
-                      | 30% GET /items/{id}
-
-MIXED (2 entités)     | 40% GET /items?page=...                                    | 50 → 100            | 60 s      | 10 min         | ≈ 1 KB
-                      | 20% POST /items (1 KB)
-                      | 10% PUT /items/{id} (1 KB)
-                      | 10% DELETE /items/{id}
-                      | 10% POST /categories (0.5–1 KB)
-                      | 10% PUT /categories/{id}
-
-HEAVY-body            | 50% POST /items (5 KB)                                     | 30 → 60             | 60 s      | 8 min          | 5 KB
-                      | 50% PUT /items/{id} (5 KB)
+| Scénario              | Mix                                                        | Threads (paliers)   | Ramp-up | Durée/palier | Payload |
+|-----------------------|-------------------------------------------------------------|----------------------|---------|--------------|---------|
+| READ-heavy (relation) | 50% GET /items?page=&size=50                                | 50 → 100 → 200       | 60 s    | 10 min       | –       |
+|                       | 20% GET /items?categoryId=...&page=&size=                   |                      |         |              |         |
+|                       | 20% GET /categories/{id}/items?page=&size=                  |                      |         |              |         |
+|                       | 10% GET /categories?page=&size=                             |                      |         |              |         |
+| JOIN-filter           | 70% GET /items?categoryId=...&page=&size=                   | 60 → 120             | 60 s    | 8 min        | –       |
+|                       | 30% GET /items/{id}                                         |                      |         |              |         |
+| MIXED (2 entités)     | 40% GET /items?page=...                                     | 50 → 100             | 60 s    | 10 min       | ≈ 1 KB  |
+|                       | 20% POST /items (1 KB)                                      |                      |         |              |         |
+|                       | 10% PUT /items/{id} (1 KB)                                  |                      |         |              |         |
+|                       | 10% DELETE /items/{id}                                      |                      |         |              |         |
+|                       | 10% POST /categories (0.5–1 KB)                             |                      |         |              |         |
+|                       | 10% PUT /categories/{id}                                    |                      |         |              |         |
+| HEAVY-body            | 50% POST /items (5 KB)                                      | 30 → 60              | 60 s    | 8 min        | 5 KB    |
+|                       | 50% PUT /items/{id} (5 KB)                                  |                      |         |              |         |
 
 
 T2 — Résultats JMeter (approx.)
