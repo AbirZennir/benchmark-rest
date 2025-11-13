@@ -53,17 +53,44 @@ Observabilité
 
 T0 — Configuration matérielle et logicielle
 -------------------------------------------
-Machine : Intel Core i7 / 16 Go RAM
-OS : Windows 10
-Java : 17
-JMeter : 5.6.3
-PostgreSQL : 14
-InfluxDB : v2
-Grafana : v10
-HikariCP : min=10, max=20
+# T0 — Configuration matérielle & logicielle
+
+| Élément          | Valeur                                                      |
+| ---------------- | ----------------------------------------------------------- |
+| Machine          | Laptop Intel Core i5/i7 (4–8 threads), 16 Go RAM           |
+| OS               | Windows 10 / Windows 11 64-bit                              |
+| Java version     | Java 17 (JDK MS-17 ou OpenJDK 17)                           |
+| Docker / Compose | Docker Desktop 4.x + Docker Compose V2                      |
+| PostgreSQL       | PostgreSQL 14 (via docker-compose du projet)                |
+| JMeter           | Apache JMeter 5.6.3                                         |
+| InfluxDB         | InfluxDB v2.7                                               |
+| Grafana          | Grafana 10.x                                                |
+| Prometheus       | Prometheus 2.x + JMX Exporter                               |
+| JVM flags        | -Xms512m -Xmx1g, GC = G1GC                                  |
+| HikariCP         | minIdle=10, maxPoolSize=20, connectionTimeout=30000ms       |
+
 
 T1 — Définition des scénarios
 -----------------------------
+Scénario              | Mix                                                        | Threads (paliers)   | Ramp-up   | Durée/palier   | Payload
+---------------------------------------------------------------------------------------------------------------------------------------------
+READ-heavy (relation) | 50% GET /items?page=&size=50                               | 50 → 100 → 200      | 60 s      | 10 min         | –
+                      | 20% GET /items?categoryId=...&page=&size=
+                      | 20% GET /categories/{id}/items?page=&size=
+                      | 10% GET /categories?page=&size=
+
+JOIN-filter           | 70% GET /items?categoryId=...&page=&size=                  | 60 → 120            | 60 s      | 8 min          | –
+                      | 30% GET /items/{id}
+
+MIXED (2 entités)     | 40% GET /items?page=...                                    | 50 → 100            | 60 s      | 10 min         | ≈ 1 KB
+                      | 20% POST /items (1 KB)
+                      | 10% PUT /items/{id} (1 KB)
+                      | 10% DELETE /items/{id}
+                      | 10% POST /categories (0.5–1 KB)
+                      | 10% PUT /categories/{id}
+
+HEAVY-body            | 50% POST /items (5 KB)                                     | 30 → 60             | 60 s      | 8 min          | 5 KB
+                      | 50% PUT /items/{id} (5 KB)
 
 
 T2 — Résultats JMeter (approx.)
