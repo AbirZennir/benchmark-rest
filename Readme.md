@@ -55,7 +55,6 @@ Observabilité
 - Grafana dashboards (JMeter + JVM)
 
 <img width="960" height="540" alt="heavy-body-c-2" src="https://github.com/user-attachments/assets/abc4f6ff-abce-4472-9e9c-6c6800e1c20c" />
-<img width="169" height="288" alt="Capture d’écran 2025-11-12 184519" src="https://github.com/user-attachments/assets/2f1b5ea8-164d-484e-b385-87dd1c7eb7b3" />
 
 T0 — Configuration matérielle et logicielle
 -------------------------------------------
