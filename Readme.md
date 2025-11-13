@@ -1,4 +1,4 @@
-<img width="960" height="540" alt="heavy-body-c-1" src="https://github.com/user-attachments/assets/fa18c5fe-a247-4ff4-963f-132576911eb7" />Benchmark REST – Variantes A, C, D
+Benchmark REST – Variantes A, C, D
 ==================================
 
 Objectif
