@@ -1,4 +1,4 @@
-Benchmark REST – Variantes A, C, D
+<img width="960" height="540" alt="heavy-body-c-1" src="https://github.com/user-attachments/assets/fa18c5fe-a247-4ff4-963f-132576911eb7" />Benchmark REST – Variantes A, C, D
 ==================================
 
 Objectif
@@ -9,12 +9,6 @@ Comparer l’impact des différentes stacks REST sur :
 - Taux d’erreurs
 - Consommation CPU / RAM / GC
 - Simplification ou surcharge due aux frameworks
-
-Architecture générale
----------------------
-<img width="177" height="273" alt="Capture d’écran 2025-11-12 184342" src="https://github.com/user-attachments/assets/36c5a7bd-f8c0-4d36-9457-31e49599d86b" />
-
-
 Variantes testées :
 - A : Jersey (JAX-RS) + JPA/Hibernate
 - C : Spring Boot + @RestController + JPA/Hibernate
@@ -23,8 +17,6 @@ Variantes testées :
 Base de données
 ---------------
 <img width="960" height="540" alt="image" src="https://github.com/user-attachments/assets/88f427f6-025f-47e0-942a-7cbca82df172" />
-
-
 
 Données utilisées :
 - 2000 catégories
@@ -35,15 +27,17 @@ Scénarios JMeter
 ----------------
 
 1. READ-heavy
+<img width="960" height="540" alt="heavy-body-c-1" src="https://github.com/user-attachments/assets/b04f9be8-efeb-41e6-9822-0e194e57aa1e" />
 
 <img width="960" height="540" alt="join-filter-c1" src="https://github.com/user-attachments/assets/a92bf513-0ca4-470f-a346-a634efe0dba7" />
 
 2. JOIN-filter
+<img width="960" height="540" alt="join-filter-1" src="https://github.com/user-attachments/assets/5e33c374-3382-481e-ac88-38f139a1448c" />
 
 <img width="960" height="540" alt="mixed-1" src="https://github.com/user-attachments/assets/98ad4732-403a-4a09-ad7d-c91f4ae5004c" />
 
 3. MIXED (lecture + écriture)
-
+4. <img width="960" height="540" alt="mixed-1" src="https://github.com/user-attachments/assets/76dfec2f-d180-4258-852f-00ca9b7a50dc" />
 <img width="960" height="540" alt="mixed-2" src="https://github.com/user-attachments/assets/aefdfa77-5d34-4cf8-bd4e-a258c0a44465" />
 
 4. HEAVY-body (payload 5 KB)
