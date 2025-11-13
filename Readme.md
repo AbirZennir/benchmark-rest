@@ -37,7 +37,7 @@ Scénarios JMeter
 <img width="960" height="540" alt="mixed-1" src="https://github.com/user-attachments/assets/98ad4732-403a-4a09-ad7d-c91f4ae5004c" />
 
 3. MIXED (lecture + écriture)
-4. <img width="960" height="540" alt="mixed-1" src="https://github.com/user-attachments/assets/76dfec2f-d180-4258-852f-00ca9b7a50dc" />
+<img width="960" height="540" alt="mixed-1" src="https://github.com/user-attachments/assets/76dfec2f-d180-4258-852f-00ca9b7a50dc" />
 <img width="960" height="540" alt="mixed-2" src="https://github.com/user-attachments/assets/aefdfa77-5d34-4cf8-bd4e-a258c0a44465" />
 
 4. HEAVY-body (payload 5 KB)
