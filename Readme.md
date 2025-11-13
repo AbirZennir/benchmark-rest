@@ -53,7 +53,6 @@ Observabilité
 
 T0 — Configuration matérielle et logicielle
 -------------------------------------------
-# T0 — Configuration matérielle & logicielle
 
 | Élément          | Valeur                                                      |
 | ---------------- | ----------------------------------------------------------- |
@@ -70,7 +69,6 @@ T0 — Configuration matérielle et logicielle
 | HikariCP         | minIdle=10, maxPoolSize=20, connectionTimeout=30000ms       |
 
 
-T1 — Définition des scénarios
 # T1 — Scénarios
 
 | Scénario              | Mix                                                        | Threads (paliers)   | Ramp-up | Durée/palier | Payload |
