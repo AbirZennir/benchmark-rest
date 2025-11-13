@@ -33,8 +33,6 @@ Données utilisées :
 Scénarios JMeter
 ----------------
 
-<img width="960" height="540" alt="join-filter-2" src="https://github.com/user-attachments/assets/9d9cf7e5-41d2-48ce-bbad-f1db29cabc60" />
-
 1. READ-heavy
 
 <img width="960" height="540" alt="join-filter-c1" src="https://github.com/user-attachments/assets/a92bf513-0ca4-470f-a346-a634efe0dba7" />
@@ -72,6 +70,7 @@ HikariCP : min=10, max=20
 
 T1 — Définition des scénarios
 -----------------------------
+
 
 T2 — Résultats JMeter (approx.)
 -------------------------------
